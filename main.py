@@ -3,15 +3,20 @@
 # Ta bort en existerande hund
 # Editera informationen om en hund
 # Checka in och ut hundar, så man vet vilka som är på plats.
+
+
 import request
+
 print(request.get_all_dogs())
 # dog dictionary ska bygas
-name = {"dog.name": ""}
-age = {"dog.age": ""}
-ras = {"dog.ras": ""}
-color = {"dog.color": ""}
-inchecked = {"dog.inchecked": ""}
-contact_owner = {"dog.contact_owner": ""}
+dogs = {
+    "name": "",
+    "age": 3,
+    "ras": "Golden Retriever",
+    "color": "Golden",
+    "inchecked": True,
+    "contact_owner": "John Doe",
+},
 
 
 def get_all_dogs():
@@ -37,7 +42,7 @@ def add_new_dog():
         dog_name = input("write your dog name: ")
         dog_age = int(input("write your dog age: "))
         dog_ras = input("write your dog ras:")
-        dog_color: str = input("write your dog's color:")
+        dog_color = str(input("write your dog's color:"))
         dog_inchecked = bool(input("Is your dog inchecked?"))
         dog_contact_owner = input("write your dog contact owner:")
         answers = input(f"name -> {dog_name}\n"
@@ -48,9 +53,9 @@ def add_new_dog():
                         f"contact owner -> {dog_contact_owner}"
                         f"Is that ok? (y/n) or write Q to exit: ").strip().lower()
         if answers == "y":
-            request.add_new_dog(name=dog_name, age=dog_age, ras=dog_ras, color=dog_color, inchecked = dog_inchecked,
-                                contact_owner=dog_contact_owner)
-            myrun = False
+            request.add_new_dog_db(name=dog_name, age=dog_age, ras=dog_ras, color=dog_color,
+                                   inchecked=dog_inchecked,
+                                   contact_owner=dog_contact_owner)
         elif answers == "q":
             myrun = False
 
@@ -59,9 +64,13 @@ add_new_dog()
 myrun = False
 
 import remove_dogs
-remove_dogs.remove_dogs_by_id()
+remv = remove_dogs.RemoveDogs
+remv.remove_dogs_by_id()
 import edit_dogs
+ed = edit_dogs.EditDogs
+
 import checkIn_dogs
+chin = checkIn_dogs.CheckInDogs
 
 run = True
 while run:
@@ -80,11 +89,11 @@ while run:
         case "2":
             add_new_dog()
         case "3":
-            remove_dogs.remove_dogs_by_id(name, age, ras, color, inchecked, contact_owner)
+            request.remove_dogs_by_id()
         case "4":
-            edit_dogs.edit_dogs_info(name, age, ras, color, inchecked, contact_owner)
+            request.edit_dogs_info()
         case "5":
-            checkIn_dogs.inchecked()
+            request.checkin_dogs()
         case "q":
             print("exit!")
             run = False

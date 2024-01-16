@@ -19,7 +19,7 @@ def get_all_dogs():
     return cursor.fetchall()
 
 
-def add_new_dog(name, age, ras, color, inchecked, contact_owner):
+def add_new_dog_db(name, age, ras, color, inchecked, contact_owner):
     cursor.execute(f"INSERT INTO dogs (name, age, ras, color,inchecked,contact_owner)"
                    f"VALUES ('{name}', {age}, '{ras}', '{color}', {inchecked}, '{contact_owner}')")
     database.commit()
